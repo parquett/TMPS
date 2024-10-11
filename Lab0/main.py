@@ -28,7 +28,7 @@ class UserNotifier(ABC):
     def notify_user(self, message):
         pass
 
-# Concrete implementation of UserNotifier
+
 class EmailNotifier(UserNotifier):
     def notify_user(self, message):
         print(f"Email notification sent: {message}")
@@ -56,6 +56,7 @@ class ListBookStorage(BookStorage):
     def delete(self, book):
         self.books.remove(book)
 
+
 # LibraryManager depends on abstractions (ISP, DIP)
 class LibraryManager(BookManager, BookLister):
     def __init__(self, storage: BookStorage, notifier: UserNotifier):
@@ -75,7 +76,6 @@ class LibraryManager(BookManager, BookLister):
             print(f"{book['title']} by {book['author']}")
 
 
-# Example usage
 storage = ListBookStorage()
 notifier = EmailNotifier()
 library = LibraryManager(storage, notifier)
