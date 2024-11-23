@@ -1,4 +1,6 @@
 from .service_center import SingletonServiceCenter
-from .vehicle_facade import VehicleManagementFacade
 from .vehicle_decorator import LuxuryPackageDecorator, SportsPackageDecorator
 from .vehicle_adapter import ExternalVehicleService, VehicleServiceAdapter
+from .observer_pattern import Subject, ExternalServiceObserver, ManagerObserver
+from .vehicle_registration_system import VehicleRegistrationSystem
+from .vehicle_command import CommandInvoker, CreateVehicleCommand, BuildBikeCommand, BuildSportsCarCommand

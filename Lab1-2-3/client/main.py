@@ -1,19 +1,13 @@
-from factory import VehicleFactory
-from models import VehicleBuilder, VehicleDirector
 from utilities import (SingletonServiceCenter, LuxuryPackageDecorator, SportsPackageDecorator,
-                       ExternalVehicleService, VehicleServiceAdapter, VehicleManagementFacade)
+                       ExternalVehicleService, VehicleServiceAdapter, CommandInvoker, CreateVehicleCommand,
+                       BuildBikeCommand, BuildSportsCarCommand)
+from utilities.vehicle_facade import VehicleManagementFacade
 
 # Initialize the Facade
 vehicle_facade = VehicleManagementFacade()
 
-# Create and register a basic car using Facade
-vehicle_facade.create_and_register_vehicle("car")
-
-# Create and register a sports car with Facade
-vehicle_facade.build_and_register_sports_car()
-
-# Create and register a bike using Facade
-vehicle_facade.build_and_register_bike()
+# Initialize the command invoker
+invoker = CommandInvoker()
 
 # Demonstrate Decorator Pattern
 basic_car = vehicle_facade.factory.get_vehicle("car")
@@ -36,3 +30,9 @@ service_center1 = SingletonServiceCenter()
 service_center2 = SingletonServiceCenter()
 print("\nAre service_center1 and service_center2 the same instance?")
 print(service_center1 is service_center2)
+
+# Demonstrate Command Pattern
+invoker.add_command(CreateVehicleCommand(vehicle_facade, "car"))
+invoker.add_command(BuildSportsCarCommand(vehicle_facade))
+invoker.add_command(BuildBikeCommand(vehicle_facade))
+invoker.execute_commands()
